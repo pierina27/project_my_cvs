@@ -1,46 +1,29 @@
 import { Injectable } from '@angular/core';
 import  { persona } from '../models/persona.model';
+import { ServicesService } from './services.service';
 
 @Injectable()
 export class DatosPersonalesService{
-	constructor (){
+	constructor (private _service : ServicesService){
 
 	}
 
-	personas = this.getLocalstoragePersonas();
+	tipo = "personas";
 
-  getLocalstoragePersonas(){
-    console.log(localStorage.getItem('personas'))
-    if(JSON.parse(localStorage.getItem('personas'))){
-      return JSON.parse(localStorage.getItem('personas'));
-    }else{
-      return [];
-    }
+  getPersonas(){
+    return this._service.getDatos(this.tipo);
   }
-  setLocalstoragePersona(persona:persona){
-  	if(!persona.id){
-    	persona.id = this.personas.length + 1;
-    	this.personas.push(persona);
-  	}
 
-    console.log("Persona a incluir o modificar: ", persona);
-    localStorage.setItem('personas',JSON.stringify(this.personas));
-    this.personas = this.getLocalstoragePersonas();
+  setLocalstoragePersona(persona:persona){
+    this._service.setDatos(persona, this.tipo);
   }
 
   updatePersona(persona:persona){
-  	var index = this.personas.findIndex((obj:any) => obj.id == persona.id);
-  	this.personas[index] = persona;
-    this.setLocalstoragePersona(persona);
+    this._service.updateDatos(persona, this.tipo);
   }
 
   deletePersona(persona:persona){
-    for(var i = 0; i < this.personas.length; i++){
-      if(this.personas[i].id == persona.id){
-        this.personas.splice(i, 1);
-        return;
-      }
-    }
+    this._service.deleteDatos(persona, this.tipo);
   }
 
 

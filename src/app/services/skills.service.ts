@@ -1,49 +1,29 @@
 import { Injectable } from '@angular/core';
 import  { skill } from '../models/skill.model';
 import  { tipoSkill } from '../models/tipo-skill.model';
+import { ServicesService } from './services.service';
 
 @Injectable()
 export class SkillService{
-	constructor (){
+	constructor (private _service : ServicesService){
 
 	}
 
-	skills = this.getLocalstorageSkills();
+  tipo = "skills";
 
-  getLocalstorageSkills(){
-    console.log(localStorage.getItem('skills'))
-    if(JSON.parse(localStorage.getItem('skills'))){
-      return JSON.parse(localStorage.getItem('skills'));
-    }else{
-      return [];
-    }
+  getSkills(){
+    return this._service.getDatos(this.tipo);
   }
 
-  setLocalstorageSkills(skill:skill){
-  	if(!skill.id){
-    	skill.id = this.skills.length + 1;
-    	this.skills.push(skill);
-  	}
-
-    console.log("skill a incluir o modificar: ", skill);
-    localStorage.setItem('skills',JSON.stringify(this.skills));
-    this.skills = this.getLocalstorageSkills();
+  setSkills(skill:skill){
+  	this._service.setDatos(skill, this.tipo);
   }
 
   updateskill(skill:skill){
-  	var index = this.skills.findIndex((obj:any) => obj.id == skill.id);
-  	this.skills[index] = skill;
-    this.setLocalstorageSkills(skill);
+  	this._service.updateDatos(skill, this.tipo);
   }
 
   deleteskill(skill:skill){
-    for(var i = 0; i < this.skills.length; i++){
-      if(this.skills[i].id == skill.id){
-        this.skills.splice(i, 1);
-        return;
-      }
-    }
+    this._service.deleteDatos(skill, this.tipo);
   }
-
-
 }

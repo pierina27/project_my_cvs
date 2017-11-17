@@ -4,5 +4,5 @@ export interface skill{
 	id:number;
 	nombre:string;
 	descripcion:string;
-	tipo: tipoSkill[];
+	tipo: tipoSkill;
 }

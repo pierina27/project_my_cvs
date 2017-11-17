@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<legend>
+				Habilidades
+			</legend>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group">
+			<div class="col-sm-12 col-lg-offset-5">
+				<button type="button" class="btn btn-primary" (click)="addSkills()">Agregar</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="list-group">
+			<a href="#" class="list-group-item list-group-item-action" *ngFor="let persona of personas" (click)="onSelect(persona)">{{ persona.nombre }}</a>
+		</div>
+	</div>
+</div>

@@ -1,3 +1,16 @@
-<p>
-  skills-persona works!
-</p>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<legend>
+				Habilidades por persona
+			</legend>
+		</div>
+	</div>
+	<div class="row">
+		<select class="form-control" id="persona" [(ngModel)]="persona" (change)="onSelect(persona)">
+			<option value="" selected>Seleccione</option>
+			<option [value]="persona" *ngFor="let persona of personas">{{persona.nombre}}</option>
+		</select>
+	</div>
+	<app-skills></app-skills>
+</div>

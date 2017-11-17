@@ -31,5 +31,4 @@ export class DatosPersonalesComponent implements OnInit {
     console.log(this.persona);
     this._datosPersonalesService.deletePersona(this.persona);
   }
-
 }
